@@ -1,0 +1,149 @@
+<!-- Day of the week with Date for notion widget (Dark mode) -->
+<!-- By: Trixelle Juan Tong -->
+
+<html> 
+  <head>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@800&display=swap" rel="stylesheet"><link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@100&display=swap" rel="stylesheet">
+    <style>
+
+      #text {
+        font-family: 'Montserrat', sans-serif;
+        text-align: center;
+        margin-bottom: 10px;
+      }
+
+      h3 {
+        font-weight: 300;
+        font-size: 25px;
+        margin: 10px;
+      }
+
+      #date {
+        font-weight: 900;
+        font-size: 40px;
+      }
+      
+      #year {
+        font-weight: 900;
+        font-size: 20px;
+        letter-spacing: 5px;
+      }
+
+      #time {
+          margin-top: 20px;
+          font-size: 30px;
+          letter-spacing: 5px;
+      }
+
+      body{
+        background-color: rgb(48, 52, 55);
+        color: white;
+      }
+
+      .light {
+          background-color: white; 
+          color: #37352F;
+      }
+
+      button{
+          margin: 10px 0px;
+          border-radius: 50%;
+          width: 40px;
+          height: 40px;
+          border-style: none;
+          background-color: transparent;
+      }
+
+       .white {
+          color: white;
+      }
+
+      .black {
+        color: #37352F;
+      } 
+
+    </style>  
+    <title>Day of the Week with Date Now</title> 
+  </head>
+
+  <body>
+      <div id="text">
+            <h3 id="day"></h3>
+            <div id="date"></div>
+            <div id="year"></div>
+            <h3 id="time"></h3>
+            <div class="mode">
+                <button onclick="toggle()"><i id="faicon" class="white fa fa fa-sun-o"></i></button>
+            </div>
+      </div>
+      
+  </body>
+
+  <script>
+
+    window.onload = function() {
+      var months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+      var date = new Date();
+      
+      var weekday = new Array(7);
+         weekday[0] = "Sunday";
+         weekday[1] = "Monday";
+         weekday[2] = "Tuesday";
+         weekday[3] = "Wednesday";
+         weekday[4] = "Thursday";
+         weekday[5] = "Friday";
+         weekday[6] = "Saturday";
+       
+      var dayOfWeek = weekday[date.getDay()];
+      
+      document.getElementById('day').innerHTML = dayOfWeek;
+      document.getElementById('date').innerHTML = months[date.getMonth()] + ' ' + date.getDate() 
+      document.getElementById('year').innerHTML = date.getFullYear();
+    };
+
+    (function () {
+        function checkTime(i) {
+            return (i < 10) ? "0" + i : i;
+        }
+
+        function startTime() {
+             var today = new Date(),
+                 hours = checkTime(today.getHours()),
+                 minutes = checkTime(today.getMinutes()),
+
+                 ampm = hours < 12 ? 'AM' : 'PM',
+                 hours = hours % 12,
+                 hours = hours ? hours : 12; // hour will be '12' when it is 0
+                 //minutes = minutes < 10 ? '0'+ minutes : minutes;
+                
+                
+            document.getElementById('time').innerHTML = hours + ":" + minutes + " " + ampm;
+            t = setTimeout(function () {
+                startTime()
+            }, 500);
+        }
+        startTime();
+    })();
+
+    //toggle for light and dark mode
+    function toggle() {     
+        var element = document.body;
+        var icon = document.getElementById('faicon');
+        element.classList.toggle("light");
+
+        if(icon.classList.contains('white')){   //white icon in dark mode
+            icon.classList.remove('white', 'fa-sun-o');
+            icon.classList.add('black', 'fa-moon-o');
+        } else {    //dark icon in light mode
+            icon.classList.remove('black', 'fa-moon-o');
+            icon.classList.add('white', 'fa-sun-o');
+        }
+      
+    }
+
+  </script>
+</html>
